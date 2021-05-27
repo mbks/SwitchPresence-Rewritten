@@ -21,4 +21,20 @@ const char *getAppName(u64 programId)
     }
     return "A Game";
 }
+
+u64 getAppPlayer(u64 programId)
+{
+    Result rc;
+    AccountUid userID;
+     /*if(R_FAILED(rc)) {
+        return rc;
+    }*/
+
+    rc = accountGetLastOpenedUser(&userID);
+    if(R_FAILED(rc)) {
+        return 0;
+    }
+    return *userID.uid;
+
+}
 } // namespace Utils

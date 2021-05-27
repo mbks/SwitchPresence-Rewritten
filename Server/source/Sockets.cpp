@@ -8,12 +8,13 @@
 static int sockfd = 0;
 static int connection = 0;
 
-int sendData(u64 programId, const char *name)
+int sendData(u64 programId, const char *name, u64 player)
 {
     titlepacket packet;
     packet.magic = PACKETMAGIC;
     strcpy(packet.name, name);
     packet.programId = programId;
+    packet.player = player;
     return send(connection, &packet, sizeof(packet), 0);
 }
 
