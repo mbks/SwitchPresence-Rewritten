@@ -8,10 +8,10 @@ struct PACKED titlepacket
 {
     u64 magic;
     u64 programId;
-    u64 player;
     char name[612];
+    char player[33];
 };
 
-int sendData(u64 programId, const char *name, u64 player);
+int sendData(u64 programId, const char *name, const char *player);
 Result setupSocketServer();
 void closeSocketServer();

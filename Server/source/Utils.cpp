@@ -22,19 +22,38 @@ const char *getAppName(u64 programId)
     return "A Game";
 }
 
-u64 getAppPlayer(u64 programId)
+const char *getAppPlayer(u64 programId)
 {
     Result rc;
     AccountUid userID;
+    AccountProfile profile;
+    AccountUserData userdata;
+    AccountProfileBase profilebase;
+    memset(&userdata, 0, sizeof(userdata));
+    memset(&profilebase, 0, sizeof(profilebase));
+    static char nickname[0x21];
      /*if(R_FAILED(rc)) {
         return rc;
     }*/
 
     rc = accountGetLastOpenedUser(&userID);
     if(R_FAILED(rc)) {
-        return 0;
+        return "Unknown ID";
     }
-    return *userID.uid;
+
+    rc = accountGetProfile(&profile, userID);
+    if (R_FAILED(rc)) {
+                return "Unknown profile";
+    }
+
+    rc = accountProfileGet(&profile, &userdata, &profilebase);
+    if (R_FAILED(rc)) {
+                return "Invalid profile";
+    }
+
+    memset(nickname,  0, sizeof(nickname));
+    strncpy(nickname, profilebase.nickname, sizeof(nickname)-1);
+    return nickname;
 
 }
 } // namespace Utils

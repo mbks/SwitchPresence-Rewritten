@@ -63,6 +63,7 @@ extern "C"
 static u64 lastProcessId = 0;
 static u64 lastProgramId = 0;
 static const char * lastGameName = "A game";
+static const char * lastPlayer = "NONE";
 
 int main(int argc, char **argv)
 {
@@ -74,7 +75,6 @@ int main(int argc, char **argv)
         int src;
         u64 processId;
         u64 programId;
-        u64 lastPlayer = 0;
 
         if (R_SUCCEEDED(pmdmntGetApplicationProcessId(&processId)))
         {
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
         else
         {
             //This is so we can make sure our connection is not broken if so, start and accept a new one
-            src = sendData(0, "SNULL", 0);
+            src = sendData(0, "SNULL", "NONE");
         }
 
         if (src < 0)

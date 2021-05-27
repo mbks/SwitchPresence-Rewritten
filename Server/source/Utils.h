@@ -13,5 +13,5 @@
 namespace Utils
 {
 const char *getAppName(u64 programId);
-u64 getAppPlayer(u64 programId);
+const char *getAppPlayer(u64 programId);
 } // namespace Utils
