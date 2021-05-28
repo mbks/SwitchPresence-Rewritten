@@ -7,10 +7,10 @@
 
 static int sockfd = 0;
 static int connection = 0;
+static titlepacket packet = titlepacket();
 
 int sendData(u64 programId, const char *name, const char *player)
 {
-    titlepacket packet;
     packet.magic = PACKETMAGIC;
     strcpy(packet.name, name);
     strcpy(packet.player, player);
