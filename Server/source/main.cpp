@@ -1,5 +1,6 @@
 #include "Sockets.h"
 #include "Utils.h"
+#include <cstring>
 
 extern "C"
 {
@@ -64,6 +65,7 @@ static u64 lastProcessId = 0;
 static u64 lastProgramId = 0;
 static const char * lastGameName = "A game";
 static const char * lastPlayer = "NONE";
+static char nickname[0x21];
 
 int main(int argc, char **argv)
 {

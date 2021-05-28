@@ -31,10 +31,6 @@ const char *getAppPlayer(u64 programId)
     AccountProfileBase profilebase;
     memset(&userdata, 0, sizeof(userdata));
     memset(&profilebase, 0, sizeof(profilebase));
-    static char nickname[0x21];
-     /*if(R_FAILED(rc)) {
-        return rc;
-    }*/
 
     rc = accountGetLastOpenedUser(&userID);
     if(R_FAILED(rc)) {
@@ -50,10 +46,7 @@ const char *getAppPlayer(u64 programId)
     if (R_FAILED(rc)) {
                 return "Invalid profile";
     }
-
-    memset(nickname,  0, sizeof(nickname));
-    strncpy(nickname, profilebase.nickname, sizeof(nickname)-1);
-    return nickname;
+    return &profilebase.nickname
 
 }
 } // namespace Utils
