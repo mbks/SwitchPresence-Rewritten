@@ -63,9 +63,9 @@ extern "C"
 
 static u64 lastProcessId = 0;
 static u64 lastProgramId = 0;
+static AccountUid lastUserId = {0};
 static const char * lastGameName = "A game";
 static const char * lastPlayer = "NONE";
-static char nickname[0x21];
 
 int main(int argc, char **argv)
 {
@@ -77,9 +77,18 @@ int main(int argc, char **argv)
         int src;
         u64 processId;
         u64 programId;
+        AccountUid userId;
 
         if (R_SUCCEEDED(pmdmntGetApplicationProcessId(&processId)))
         {
+            if (R_SUCCEEDED(accountGetLastOpenedUser(&userId))) {
+                if (lastUserId.uid != userId.uid) {
+                    lastUserId = userId;
+                    lastPlayer = Utils::getAppPlayer(userId);
+                }
+            } else {
+                lastPlayer = "Unknown ID";
+            }
             if (lastProcessId != processId)
             {
                 lastProcessId = processId;
@@ -92,8 +101,6 @@ int main(int argc, char **argv)
                     }
                 }
             }
-            lastPlayer = Utils::getAppPlayer(programId);
-
             src = sendData(programId, lastGameName, lastPlayer);
         }
         else

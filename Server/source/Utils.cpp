@@ -22,20 +22,16 @@ const char *getAppName(u64 programId)
     return "A Game";
 }
 
-const char *getAppPlayer(u64 programId)
+static char nickname[33];
+
+const char *getAppPlayer(AccountUid userID)
 {
     Result rc;
-    AccountUid userID;
     AccountProfile profile;
     AccountUserData userdata;
     AccountProfileBase profilebase;
     memset(&userdata, 0, sizeof(userdata));
     memset(&profilebase, 0, sizeof(profilebase));
-
-    rc = accountGetLastOpenedUser(&userID);
-    if(R_FAILED(rc)) {
-        return "Unknown ID";
-    }
 
     rc = accountGetProfile(&profile, userID);
     if (R_FAILED(rc)) {
@@ -46,7 +42,11 @@ const char *getAppPlayer(u64 programId)
     if (R_FAILED(rc)) {
                 return "Invalid profile";
     }
-    return &profilebase.nickname
+    memset(nickname,  0, sizeof(nickname));
+    strncpy(nickname, profilebase.nickname, sizeof(nickname)-1);
+    accountProfileClose(&profile);
+
+    return nickname;
 
 }
 } // namespace Utils
