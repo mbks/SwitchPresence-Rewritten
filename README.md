@@ -1,3 +1,4 @@
+This fork adds back the functionality of sending the player account that launched the game together with the rest of the payload, which was present in the original SwitchPresence.
 # SwitchPresence-Rewritten
 Change your Discord rich presence to your currently playing Nintendo Switch game! Concept taken from [SwitchPresence](https://github.com/Random0666/SwitchPresence) by [Random](https://github.com/Random0666)<br>
 
